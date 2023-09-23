@@ -1,12 +1,14 @@
 let buttons = document.querySelectorAll('button');
 let divResult = document.querySelector('#result');
 let divOperations = document.querySelector('#operations')
+
 let n1 = 0; // should only hold the acumulated number of the operation
 let n2 = 0; // should always hold the value displayed in result
 let operator = '';
 let strOperations = '';
 let giveNextNumber = false;
 let gaveResult = false;
+let decimal = false;
 
 main()
 function main() {
@@ -19,26 +21,42 @@ function linkButtons() {
             if (gaveResult) {
                 strOperations = ''
                 divOperations.textContent = ''
-                gaveResult = false;
                 operator = ''
+                gaveResult = false;
+                giveNextNumber = true;
             }
 
             let content = b.textContent;
-            if (+content || +content == 0) { // number
+            if (+content || +content == 0 || content == '.') { // number
                 if (giveNextNumber) {
                     n2 = 0;
+                    divResult.textContent = 0;
                     giveNextNumber = false
+                    decimal = false;
                 }
-                n2 = +(n2 + content);
-                divResult.textContent = n2;
+                if (content == '.' && decimal) {
+                    return;
+                } else if(content == '.'){
+                    decimal = true;
+                    divResult.textContent = n2 + '.';
+                } else if (decimal) {
+                    divResult.textContent += content;
+                    n2 = +divResult.textContent;
+                } else {
+                    n2 = +(divResult.textContent + content);
+                    divResult.textContent = n2;
+                }
             } else { // operation
                 if (content == 'clear') {
                     n1 = 0;
                     n2 = 0;
+                    divResult.textContent = 0;
                     operator = '';
                     strOperations = '';
-                    divResult.textContent = 0;
                     divOperations.textContent = ''
+                    giveNextNumber = false;
+                    gaveResult = false;
+                    decimal = false;
                 } else if (content == '=') {
                     if (!operator) return;
                     strOperations += ` ${n2} = `
@@ -46,7 +64,6 @@ function linkButtons() {
                     divResult.textContent =  n2;
                     divOperations.textContent = strOperations;
                     gaveResult = true;
-                    giveNextNumber = true;
                 } else {
                     if (operator) {
                         n1 = operate(operator, n1, n2);
@@ -68,13 +85,13 @@ function operate(operator, n1, n2) {
     n2 = +n2;
     switch (operator) {
         case '+':
-            return add(n1, n2).toFixed(2);
+            return +add(n1, n2).toFixed(2);
         case '-':
-            return substract(n1, n2).toFixed(2);
+            return +substract(n1, n2).toFixed(2);
         case '*':
-            return multiply(n1, n2).toFixed(2);
+            return +multiply(n1, n2).toFixed(2);
         case '/':
-            return divide(n1, n2).toFixed(2);
+            return +divide(n1, n2).toFixed(2);
     }
 }
 

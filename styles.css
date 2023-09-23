@@ -37,11 +37,14 @@ button {
     font-size: 64px;
     border: 1px solid black;
     width: 25%;
-    height: 25%;
+    height: 20%;
     background: white;
 }
 
 #clear {
     font-size: 32px;
     font-weight: bolder;
+}
+.operator {
+    background: #87e4ed;
 }
