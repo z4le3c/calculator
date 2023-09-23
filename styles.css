@@ -11,15 +11,17 @@ body {
     display: flex;
     flex-direction: column;
     border: 5px solid black;
-    gap: 8px;
 }
 
 .display {
-    height: 10%;
+    box-sizing: border-box;
+    padding: 8px;
+    height: 15%;
     text-align: right;
     font-size:32px;
     display: flex;
     flex-direction: column;
+    border-bottom: 3px solid black;
 }
 
 #operations, #result {
@@ -27,7 +29,7 @@ body {
 }
 
 .buttons {
-    height: 90%;
+    height: 85%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -39,6 +41,7 @@ button {
     width: 25%;
     height: 20%;
     background: white;
+    border-radius: 8px;
 }
 
 #clear {
