@@ -1,8 +1,12 @@
 let buttons = document.querySelectorAll('button');
-let display = document.querySelector('.display');
+let result = document.querySelector('#result');
+let operations = document.querySelector('#operations')
 let n1 = 0;
 let n2 = 0;
 let operator = '';
+let operationsStr = '';
+let giveNextNumber = false;
+let gaveResult = false;
 
 main()
 function main() {
@@ -12,28 +16,47 @@ function main() {
 function linkButtons() { 
     for (const b of buttons) {
         b.addEventListener('click', () => {
+            if (gaveResult) {
+                operationsStr = ''
+                operations.textContent = ''
+                gaveResult = false;
+                operator = ''
+            }
+
             let content = b.textContent;
             if (+content || +content == 0) { // number
-                if (!operator) {
-                    n1 = +(n1 + content)
-                    display.textContent = n1;
-                } else {
-                    n2 = +(n2 + content)
-                    display.textContent = n2;
+                if (giveNextNumber) {
+                    n2 = 0;
+                    giveNextNumber = false
                 }
+                n2 = +(n2 + content);
+                result.textContent = n2;
             } else { // operation
                 if (content == 'clear') {
                     n1 = 0;
                     n2 = 0;
                     operator = '';
-                    display.textContent = 0;
+                    operationsStr = '';
+                    result.textContent = 0;
+                    operations.textContent = ''
                 } else if (content == '=') {
-                    n1 = operate(operator, n1, n2);
-                    display.textContent =  n1
-                    operator = '';
-                    n2 = 0;
+                    if (!operator) return;
+                    operationsStr += ` ${n2} = `
+                    n2 = operate(operator, n1, n2);
+                    result.textContent =  n2;
+                    operations.textContent = operationsStr;
+                    gaveResult = true;
+                    giveNextNumber = true;
                 } else {
+                    if (operator) {
+                        n1 = operate(operator, n1, n2);
+                    } else {
+                        n1 = n2;
+                    }
                     operator = content;
+                    operationsStr += ` ${n2} ${operator}`;
+                    operations.textContent = operationsStr;
+                    giveNextNumber = true;
                 }
             }
         });
@@ -41,15 +64,17 @@ function linkButtons() {
 }
 
 function operate(operator, n1, n2) {
+    n1 = +n1;
+    n2 = +n2;
     switch (operator) {
         case '+':
-            return add(n1, n2).toFixed();
+            return add(n1, n2).toFixed(2);
         case '-':
-            return substract(n1, n2).toFixed();
+            return substract(n1, n2).toFixed(2);
         case '*':
-            return multiply(n1, n2).toFixed();
+            return multiply(n1, n2).toFixed(2);
         case '/':
-            return divide(n1, n2).toFixed();
+            return divide(n1, n2).toFixed(2);
     }
 }
 

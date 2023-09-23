@@ -11,13 +11,19 @@ body {
     display: flex;
     flex-direction: column;
     border: 5px solid black;
-    gap: 16px
+    gap: 8px;
 }
 
 .display {
     height: 10%;
     text-align: right;
-    font-size:64px;
+    font-size:32px;
+    display: flex;
+    flex-direction: column;
+}
+
+#operations, #result {
+    height: 50%;
 }
 
 .buttons {
@@ -27,9 +33,12 @@ body {
 }
 
 button {
+    box-sizing: border-box;
     font-size: 64px;
+    border: 1px solid black;
     width: 25%;
     height: 25%;
+    background: white;
 }
 
 #clear {
