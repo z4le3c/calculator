@@ -1,10 +1,10 @@
 let buttons = document.querySelectorAll('button');
-let result = document.querySelector('#result');
-let operations = document.querySelector('#operations')
-let n1 = 0;
-let n2 = 0;
+let divResult = document.querySelector('#result');
+let divOperations = document.querySelector('#operations')
+let n1 = 0; // should only hold the acumulated number of the operation
+let n2 = 0; // should always hold the value displayed in result
 let operator = '';
-let operationsStr = '';
+let strOperations = '';
 let giveNextNumber = false;
 let gaveResult = false;
 
@@ -17,8 +17,8 @@ function linkButtons() {
     for (const b of buttons) {
         b.addEventListener('click', () => {
             if (gaveResult) {
-                operationsStr = ''
-                operations.textContent = ''
+                strOperations = ''
+                divOperations.textContent = ''
                 gaveResult = false;
                 operator = ''
             }
@@ -30,21 +30,21 @@ function linkButtons() {
                     giveNextNumber = false
                 }
                 n2 = +(n2 + content);
-                result.textContent = n2;
+                divResult.textContent = n2;
             } else { // operation
                 if (content == 'clear') {
                     n1 = 0;
                     n2 = 0;
                     operator = '';
-                    operationsStr = '';
-                    result.textContent = 0;
-                    operations.textContent = ''
+                    strOperations = '';
+                    divResult.textContent = 0;
+                    divOperations.textContent = ''
                 } else if (content == '=') {
                     if (!operator) return;
-                    operationsStr += ` ${n2} = `
+                    strOperations += ` ${n2} = `
                     n2 = operate(operator, n1, n2);
-                    result.textContent =  n2;
-                    operations.textContent = operationsStr;
+                    divResult.textContent =  n2;
+                    divOperations.textContent = strOperations;
                     gaveResult = true;
                     giveNextNumber = true;
                 } else {
@@ -54,8 +54,8 @@ function linkButtons() {
                         n1 = n2;
                     }
                     operator = content;
-                    operationsStr += ` ${n2} ${operator}`;
-                    operations.textContent = operationsStr;
+                    strOperations += ` ${n2} ${operator}`;
+                    divOperations.textContent = strOperations;
                     giveNextNumber = true;
                 }
             }
