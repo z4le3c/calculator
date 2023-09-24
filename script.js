@@ -63,6 +63,8 @@ function linkButtons() {
                     n2 = operate(operator, n1, n2);
                     divResult.textContent =  n2;
                     divOperations.textContent = strOperations;
+                    // keep the scroll at the end
+                    divOperations.scrollLeft = divOperations.scrollWidth - divOperations.clientWidth;
                     gaveResult = true;
                 } else {
                     if (operator) {
@@ -73,6 +75,8 @@ function linkButtons() {
                     operator = content;
                     strOperations += ` ${n2} ${operator}`;
                     divOperations.textContent = strOperations;
+                    // keep the scroll at the end
+                    divOperations.scrollLeft = divOperations.scrollWidth - divOperations.clientWidth;
                     giveNextNumber = true;
                 }
             }
