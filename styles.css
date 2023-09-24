@@ -3,14 +3,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, #f78d72, #04174d);
 }
 
 .calculator {
+    box-sizing: border-box;
     width: 400px;
-    height: 600px;
+    height: 620px;
     display: flex;
     flex-direction: column;
-    border: 5px solid black;
+    background: #ffffff3f;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 5px 5px 5px black;
 }
 
 .display {
@@ -21,7 +26,8 @@ body {
     font-size:32px;
     display: flex;
     flex-direction: column;
-    border-bottom: 3px solid black;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.116);
+    margin-bottom: 16px;
 }
 
 #operations, #result {
@@ -49,18 +55,28 @@ body {
 
 button {
     box-sizing: border-box;
-    font-size: 64px;
-    border: 1px solid black;
-    width: 25%;
-    height: 20%;
-    background: white;
-    border-radius: 8px;
+    font-size: 42px;
+    border: 0px;
+    margin: 2px;
+    width: calc(25% - 4px);
+    height: 19%;
+    background: #ffffff83;
+    border-radius: 2px;
+    flex-shrink: 1;
+}
+
+button:hover {
+    background: #ffffffb7;
+}
+
+button:active {
+    background: #ffffff;
 }
 
 #clear {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bolder;
 }
 .operator {
-    background: #87e4ed;
+    background: #c5c5c583;
 }
